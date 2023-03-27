@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Setting Preference App</string>
+    <string name="nothing">Empty</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="age">Age</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="is_love">Likes Metallica</string>
+    <string name="key_email">email</string>
+    <string name="key_age">age</string>
+    <string name="key_phone">phone</string>
+    <string name="key_love">love</string>
+    <string name="key_name">name</string>
 </resources>
