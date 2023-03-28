@@ -26,11 +26,14 @@ class MyPreferenceFragment: PreferenceFragmentCompat(),
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        // setting out the preferenceScreen layout
         addPreferencesFromResource(R.xml.preferences)
+        // calling the 'init' to initiate variables
         init()
         setSummaries()
     }
 
+    // initiating variables needed
     private fun init() {
         NAME = resources.getString(R.string.key_name)
         EMAIL = resources.getString(R.string.key_email)
@@ -46,7 +49,12 @@ class MyPreferenceFragment: PreferenceFragmentCompat(),
     }
 
     private fun setSummaries() {
+        // 'preferenceManager' is another way to access sharedPreferences, besides `context.getSharedPreference`
+        // 'context.getSharedPreference' is preferred when it's needed to access 'SharedPreference' from another class/activity
+        // 'preferenceManager' is preferred to access 'sharedPreference' within 'PreferenceFragment' or 'PreferenceActivity' scope
         val sh = preferenceManager.sharedPreferences
+
+        // this will set the 'summary' (text below the title) of a preference item, the 'value' and the 'default value'
         namePreference.summary = sh?.getString(NAME, DEFAULT_VALUE)
         namePreference.summary = sh?.getString(NAME, DEFAULT_VALUE)
         emailPreference.summary = sh?.getString(EMAIL, DEFAULT_VALUE)
@@ -55,16 +63,20 @@ class MyPreferenceFragment: PreferenceFragmentCompat(),
         isLoveMetallicaPreference.isChecked = sh!!.getBoolean(LOVE, false)
     }
 
+    // this will 'updates the UI' by 'Listener' when the Fragment is 'onResume'
     override fun onResume() {
         super.onResume()
         preferenceScreen.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
     }
 
+    // this will 'stop the Listener' that 'updates the UI' so the system doesn't have memory leaks
     override fun onPause() {
         super.onPause()
         preferenceScreen.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
     }
 
+    // this 'called' when the 'preference is changed'
+    // this connects to the function inside 'onResume()' and 'onPause()'
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         if (key == NAME) {
             namePreference.summary = sharedPreferences?.getString(NAME, DEFAULT_VALUE)

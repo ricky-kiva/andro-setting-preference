@@ -8,6 +8,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // connecting fragment to activity's ,layout element
         supportFragmentManager
             .beginTransaction()
             .add(R.id.setting_holder, MyPreferenceFragment())
